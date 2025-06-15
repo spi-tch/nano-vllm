@@ -1,8 +1,8 @@
 import pickle
 import torch
 import torch.distributed as dist
-from multiprocess.synchronize import Event
-from multiprocess.shared_memory import SharedMemory
+from multiprocessing.synchronize import Event
+from multiprocessing.shared_memory import SharedMemory
 
 from nanovllm.config import Config
 from nanovllm.engine.sequence import Sequence
@@ -50,6 +50,7 @@ class ModelRunner:
     def exit(self):
         if self.world_size > 1:
             self.shm.close()
+            dist.barrier()
             if self.rank == 0:
                 self.shm.unlink()
         # dist.destroy_process_group()
