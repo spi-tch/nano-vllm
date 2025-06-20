@@ -180,8 +180,11 @@ class Qwen3Model(nn.Module):
         self,
         input_ids: torch.Tensor,
         positions: torch.Tensor,
+        input_embeds: torch.Tensor = None #from audio encoder
     ) -> torch.Tensor:
         hidden_states = self.embed_tokens(input_ids)
+        if input_embeds is not None:
+            hidden_states = torch.concat([input_embeds, hidden_states], dim = 1)
         residual = None
         for layer in self.layers:
             hidden_states, residual = layer(
@@ -217,8 +220,9 @@ class Qwen3ForCausalLM(nn.Module):
         self,
         input_ids: torch.Tensor,
         positions: torch.Tensor,
+        input_embeds: torch.Tensor,
     ) -> torch.Tensor:
-        hidden_states = self.model(input_ids, positions)
+        hidden_states = self.model(input_ids, positions, input_embeds)
         return hidden_states
 
     def compute_logits(

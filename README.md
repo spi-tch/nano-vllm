@@ -38,6 +38,7 @@ See `bench.py` for benchmark.
 - Output Length: Randomly sampled between 100–1024 tokens
 
 **Performance Results:**
+
 | Inference Engine | Output Tokens | Time (s) | Throughput (tokens/s) |
 |----------------|-------------|----------|-----------------------|
 | vLLM           | 133,966     | 98.37    | 1361.84               |
