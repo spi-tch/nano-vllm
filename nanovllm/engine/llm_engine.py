@@ -62,7 +62,7 @@ class LLMEngine:
         prompts: list[str] | list[list[int]],
         sampling_params: SamplingParams | list[SamplingParams],
         use_tqdm: bool = True,
-        prompt_embeds: list[list[float]] | list[list[list[float]]] = None
+        prompt_embeds: list[list[float]] | list[list[list[float]]]
     ) -> list[str]:
         if use_tqdm:
             pbar = tqdm(total=len(prompts), desc="Generating", dynamic_ncols=True)
